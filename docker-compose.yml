@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: aegis-postgres
+    environment:
+      POSTGRES_DB: aegis_auth
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Aakash@123
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:7
+    container_name: aegis-redis
+    ports:
+      - "6379:6379"
+
+  auth-service:
+    build:
+      context: ./aegis-auth-service
+    container_name: aegis-auth-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - redis
