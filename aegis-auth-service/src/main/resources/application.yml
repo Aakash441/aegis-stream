@@ -19,7 +19,9 @@ spring:
   redis:
     host: redis
     port: 6379
-
+jwt:
+  secret: this-project-will-get-me-into-big-tech
+  expiration: 86400000
 logging:
   level:
     org.hibernate.SQL: DEBUG

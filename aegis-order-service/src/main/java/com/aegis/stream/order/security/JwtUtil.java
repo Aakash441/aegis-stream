@@ -1,4 +1,4 @@
-package com.aegis.stream.auth.security;
+package com.aegis.stream.order.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -47,3 +47,4 @@ public class JwtUtil {
         return UUID.fromString(claims.getSubject());
     }
 }
+
