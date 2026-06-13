@@ -20,7 +20,7 @@ spring:
     host: redis
     port: 6379
 jwt:
-  secret: this-project-will-get-me-into-big-tech
+  secret: ${JWT_SECRET}
   expiration: 86400000
 logging:
   level:

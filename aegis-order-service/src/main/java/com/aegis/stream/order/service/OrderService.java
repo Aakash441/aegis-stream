@@ -5,10 +5,12 @@ import com.aegis.stream.order.kafka.OrderEventProducer;
 import com.aegis.stream.order.model.Order;
 import com.aegis.stream.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -33,5 +35,15 @@ public class OrderService {
         );
 
         return saved;
+    }
+
+    public void updateOrderStatus(UUID orderId, String paymentStatus) {
+
+        orderRepository.findById(orderId).ifPresentOrElse(order -> {
+            String newStatus = paymentStatus.equals("SUCCESS") ? "PAID" : "PAYMENT_FAILED";
+            order.setStatus(newStatus);
+            orderRepository.save(order);
+            log.info("Order {} status updated to {}", orderId, newStatus);
+        }, () -> log.warn("Order {} not found for status update", orderId));
     }
 }

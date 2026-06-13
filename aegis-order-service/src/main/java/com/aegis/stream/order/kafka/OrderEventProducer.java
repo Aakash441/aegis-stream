@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderEventProducer {
 
-    private final KafkaTemplate<String, OrderCreatedEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;  // ← change this
 
     public void publishOrderCreated(OrderCreatedEvent event) {
         kafkaTemplate.send("order-created-topic", event);
