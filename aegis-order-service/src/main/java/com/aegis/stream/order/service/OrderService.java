@@ -1,6 +1,7 @@
 package com.aegis.stream.order.service;
 
 import com.aegis.stream.order.event.OrderCreatedEvent;
+import com.aegis.stream.order.exception.OrderNotFoundException;
 import com.aegis.stream.order.kafka.OrderEventProducer;
 import com.aegis.stream.order.model.Order;
 import com.aegis.stream.order.repository.OrderRepository;
@@ -45,5 +46,10 @@ public class OrderService {
             orderRepository.save(order);
             log.info("Order {} status updated to {}", orderId, newStatus);
         }, () -> log.warn("Order {} not found for status update", orderId));
+    }
+
+    public Order getOrder(UUID orderId) {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
     }
 }

@@ -24,10 +24,8 @@ public class KafkaConfig {
 
     @Bean
     public ConsumerFactory<String, OrderCreatedEvent> consumerFactory() {
-        JsonDeserializer<OrderCreatedEvent> deserializer =
-                new JsonDeserializer<>(OrderCreatedEvent.class, false);
+        JsonDeserializer<OrderCreatedEvent> deserializer = new JsonDeserializer<>(OrderCreatedEvent.class, false);
         deserializer.addTrustedPackages("*");
-
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "payment-service");

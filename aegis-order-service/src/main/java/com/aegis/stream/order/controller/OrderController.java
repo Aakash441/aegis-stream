@@ -26,4 +26,9 @@ public class OrderController {
 
         return ResponseEntity.ok(orderService.createOrder(userId, amount));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrder(@PathVariable UUID id) {
+        return ResponseEntity.ok(orderService.getOrder(id));
+    }
 }
